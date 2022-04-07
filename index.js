@@ -620,6 +620,21 @@ const transferToken = async (from, to, amount) => {
   }
 }
 
+const createAccount = async () => {
+  try {
+	const account = await caver.kas.wallet.createAccount();
+	return account;
+  } catch(err) {
+	console.log(err);
+	return err;
+  }
+}
+
+app.get('/createaccount', async (req, res) => {
+  const account = await createAccount();
+  res.status(200).json(account);
+});
+
 app.get('/getbalance/:addr', async (req, res) => {
   const address = req.params.addr;
 
